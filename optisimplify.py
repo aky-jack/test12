@@ -12,14 +12,13 @@ from openai import OpenAI
 openai.api_key = "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"
 client = OpenAI(api_key="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")
 def query_assistant(user_input):
-
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_input}
-    ]
-)
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_input}
+        ]
+    )
 
 return response.choices[0].message.content
 
@@ -49,5 +48,6 @@ user_input = st.text_input("Describe your optics design challenge:")
 if st.button("Ask Assistant"):
     response = query_assistant(user_input)
     st.markdown(response)
+
 
 
