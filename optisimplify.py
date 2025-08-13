@@ -7,18 +7,22 @@ import openai
 import numpy as np
 import streamlit as st
 import matplotlib.pyplot as plt
+from openai import OpenAI
 
 openai.api_key = "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"
 
 def query_assistant(user_input):
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_input}
-        ]
-    )
-    return response['choices'][0]['message']['content']
+client = OpenAI(api_key="your-api-key")
+
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_input}
+    ]
+)
+
+return response.choices[0].message.content
 
 
 def gaussian_beam(z, w0, λ):
@@ -46,3 +50,4 @@ user_input = st.text_input("Describe your optics design challenge:")
 if st.button("Ask Assistant"):
     response = query_assistant(user_input)
     st.markdown(response)
+
